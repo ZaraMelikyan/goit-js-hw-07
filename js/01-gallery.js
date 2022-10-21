@@ -36,19 +36,24 @@ function onGalleryItemClick(event) {
 
   const originalImg = event.target.dataset.source;
 
-  showModal(originalImg);
-}
-
-function showModal(imgUrl) {
-  const modal = basicLightbox.create(`
-    <img src="${imgUrl}" width="800" height="600">
-`);
-
-  modal.show(() => window.addEventListener('keydown', closeModalByEsc));
-
-  function closeModalByEsc(event) {
-    if (event.code === 'Escape') {
-      modal.close(() => window.removeEventListener('keydown', closeModalByEsc));
-    }
-  }
+  const instance = basicLightbox
+    .create(
+      `
+    <img src="${originalImg}" width="800" height="600">
+`,
+      {
+        onShow: instance => {
+          this.onInstanceclick = function (event) {
+            if (event.code === 'Escape') {
+              instance.close();
+            }
+          };
+          document.addEventListener('keydown', this.onInstanceclick);
+        },
+        onClose: instance => {
+          document.removeEventListener('keydown', this.onInstanceclick);
+        },
+      }
+    )
+    .show();
 }

@@ -9,6 +9,12 @@ const itemsContainerRef = document.querySelector('.gallery');
 const itemMarkup = createGalleryItemMarkup(galleryItems);
 itemsContainerRef.insertAdjacentHTML('beforeend', itemMarkup);
 
+let gallery = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  overlayOpacity: 0.8,
+});
+
 function createGalleryItemMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
@@ -30,10 +36,4 @@ function onGalleryItemClick(event) {
   if (!event.target.classList.contains('gallery__image')) {
     return;
   }
-
-  let gallery = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-    overlayOpacity: 0.8,
-  });
 }
