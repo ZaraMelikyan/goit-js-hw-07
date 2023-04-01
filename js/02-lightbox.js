@@ -3,8 +3,6 @@ import { galleryItems } from './gallery-items.js';
 
 console.log(galleryItems);
 
-console.log(galleryItems);
-
 const itemsContainerRef = document.querySelector('.gallery');
 const itemMarkup = createGalleryItemMarkup(galleryItems);
 itemsContainerRef.insertAdjacentHTML('beforeend', itemMarkup);
